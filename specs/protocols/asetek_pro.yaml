@@ -1,0 +1,126 @@
+id: asetek_pro
+type: protocol
+name: Asetek Pro
+endian: big
+opcode: u8
+pre_request:
+  - method: control
+    args:
+      - 0x40
+      - 0x00
+      - 0xffff
+  - method: control
+    args:
+      - 0x40
+      - 0x02
+      - 0x0002
+  - method: control
+    args:
+      - 0x40
+      - 0x02
+      - 0x0001
+post_response:
+  - method: control
+    args:
+      - 0x40
+      - 0x02
+      - 0x0004
+messages:
+  # Read operations
+  - name: read_pump_rpm
+    opcode: 0x31
+    request:
+    response:
+      - { type: "u16",   name: "luid" }
+      - { type: "u16",   name: "rpm" }
+    returns:
+      - rpm
+  - name: read_fan_rpm
+    opcode: 0x41
+    request:
+      - { type: "u8",    name: "fan_index" }
+    response:
+      - { type: "u16",   name: "luid" }
+      - { type: "u8",    name: "fan_index" }
+      - { type: "u16",   name: "rpm" }
+    returns:
+      - fan_index
+      - rpm
+  - name: read_temperature
+    opcode: 0xA9
+    request:
+    response:
+      - { type: "u16",   name: "luid" }
+      - { type: "fx16",  name: "temperature" }
+    returns:
+      - temperature
+  - name: read_firmware_version
+    opcode: 0xAA
+    request:
+    response:
+      - { type: "u16",   name: "luid" }
+      - { type: "u8",    name: "major" }
+      - { type: "u8",    name: "minor" }
+      - { type: "u8",    name: "patch" }
+      - { type: "u8",    name: "unk" }
+    returns:
+      - major
+      - minor
+      - patch
+
+  # Write operations
+  - name: write_pump_mode
+    opcode: 0x32
+    request:
+      - { type: "u8",    name: "mode" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_fan_curve
+    opcode: 0x40
+    request:
+      - { type: "u8",    name: "fan_index" }
+      - { type: "u8[7]", name: "temperatures" }
+      - { type: "u8[7]", name: "pwms" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_fan_pwm
+    opcode: 0x42
+    request:
+      - { type: "u8",    name: "fan_index" }
+      - { type: "u8",    name: "pwm" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_fan_rpm
+    opcode: 0x43
+    request:
+      - { type: "u8",    name: "fan_index" }
+      - { type: "u16",   name: "rpm" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_custom_led_color_enabled
+    opcode: 0x61
+    request:
+      - { type: "u8",    name: "enabled" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_custom_led_color
+    opcode: 0x62
+    request:
+      - { type: "u8",    name: "red" }
+      - { type: "u8",    name: "green" }
+      - { type: "u8",    name: "blue" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_enabled_external_temperature
+    opcode: 0xA4
+    request:
+      - { type: "u8",    name: "enabled" }
+    response:
+      - { type: "u16",   name: "luid" }
+  - name: write_external_temperature
+    opcode: 0xA5
+    request:
+      - { type: "fx16",  name: "temperature" }
+    response:
+      - { type: "u16",   name: "luid" }
+      - { type: "u8",    name: "unk" }

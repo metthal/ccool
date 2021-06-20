@@ -1,0 +1,6 @@
+pytest~=6.2.3
+pytest-sugar~=0.9.4
+pytest-xdist[psutil]~=2.3.0
+requests~=2.25.1
+requests-unixsocket~=0.2.0
+PyYAML~=5.4.1

@@ -1,0 +1,23 @@
+# Build
+build/
+
+# Tests
+tests/logs/
+
+# Documentation
+docs/_build/
+
+# Sock files which might be created during development
+*.sock
+
+# Python related files
+*.egg-info/
+.pytest_cache/
+__pycache__/
+env/
+
+# Files used by development tools
+.cache/
+compile_commands.json
+compile_flags.txt
+.ycm_extra_conf.py

@@ -1,0 +1,10 @@
+id: corsair_h100i_pro
+type: device
+name: Corsair H100i Pro
+protocol: asetek_pro
+fans: 2
+usb:
+  vendor_id: 0x1B1C
+  product_id: 0x0C15
+  transfer: bulk
+  endpoint: 1

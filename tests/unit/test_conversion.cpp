@@ -24,8 +24,6 @@ TEST_CASE("Conversion tests", "utils") {
 	CHECK(convert<bool>("false"s) == false);
 	CHECK(convert<std::string>(123) == "123");
 	CHECK(convert<std::string>(-123) == "-123");
-	CHECK(convert<std::string_view>("123") == "123");
-	CHECK(convert<std::string_view>("-123") == "-123");
 	CHECK(convert<std::string>(true) == "true");
 	CHECK(convert<std::string>(false) == "false");
 }

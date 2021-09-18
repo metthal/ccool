@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include <charconv>
 #include <cstdint>
 #include <optional>
@@ -35,7 +33,7 @@ std::optional<T> sequence_to(const char* data, std::size_t length)
 {
 	T result = {};
 	auto [ptr, error_code] = std::from_chars(data, data + length, result);
-	if (error_code == std::errc() && (!ptr || ptr != data + length))
+	if (error_code == std::errc{} && (!ptr || ptr != data + length))
 		return std::nullopt;
 	return result;
 }
@@ -50,6 +48,18 @@ struct Converter<From, To, std::enable_if_t<
 	, void>>
 {
 	static std::optional<To> convert(const From& from) { return To{from}; }
+};
+
+template <typename T, std::size_t N>
+struct Converter<T, char[N], std::enable_if_t<is_int_excluding_bool_v<T>, void>>
+{
+	static std::optional<std::string> convert(const T& from) { return fmt::format("{}", from); }
+};
+
+template <typename T>
+struct Converter<T, char*, std::enable_if_t<is_int_excluding_bool_v<T>, void>>
+{
+	static std::optional<std::string> convert(const T& from) { return fmt::format("{}", from); }
 };
 
 template <typename T>
@@ -85,7 +95,7 @@ struct Converter<const char*, T, std::enable_if_t<is_int_excluding_bool_v<T>, vo
 template <typename T, std::size_t N>
 struct Converter<char[N], T, std::enable_if_t<is_int_excluding_bool_v<T>, void>>
 {
-	static std::optional<T> convert(const char (&from)[N]) { return sequence_to<T>(from, N); }
+	static std::optional<T> convert(const char (&from)[N]) { return sequence_to<T>(from, N - 1); }
 };
 
 template <>

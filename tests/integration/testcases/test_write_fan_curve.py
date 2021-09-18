@@ -8,7 +8,7 @@ def test_write_fan_curve(fakedev, ccool):
         fakedev.assert_has_message_pattern(
             Repeats(
                 Sequence(
-                    Call("send", endpoint=1, data=f"40{i:02x}191e23282d3237001e28323c4b64"),
+                    Call("send", endpoint=1, data=f"40{i:02x}1923282d32373c001e28323c4b64"),
                     Call("recv", endpoint=1)
                 ),
                 min=1,

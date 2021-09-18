@@ -104,7 +104,6 @@ int main(int argc, char* argv[])
 				});
 			else if (commands[1] == "curve")
 			{
-				fmt::print("HERE\n");
 				commands.erase(commands.begin(), commands.begin() + 2);
 				auto curve_points = nlohmann::json::array();
 				for (const auto& command : commands)
@@ -115,8 +114,6 @@ int main(int argc, char* argv[])
 						fmt::print(stderr, "Fan curve needs to specified in format <TEMP>-<PWM>\n");
 						return 1;
 					}
-
-					fmt::print("{}\n", fmt::join(temp_pwm, "-"));
 
 					curve_points.push_back(nlohmann::json{
 						{"temperature", ccool::convert<std::uint8_t>(temp_pwm[0]).value()},

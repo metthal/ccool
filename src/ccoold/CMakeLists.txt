@@ -1,6 +1,7 @@
 set(SOURCES
 	buffer.cpp
 	ccool_daemon.cpp
+	daemonize.cpp
 	device_detector.cpp
 	devices/all.cpp
 	interfaces/interface.cpp
@@ -12,7 +13,7 @@ set(SOURCES
 
 add_library(libccoold STATIC ${SOURCES})
 target_include_directories(libccoold PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
-target_link_libraries(libccoold PUBLIC ccool_common spdlog::spdlog LibUSB::LibUSB json ulocal)
+target_link_libraries(libccoold PUBLIC ccool_common spdlog::spdlog LibUSB::LibUSB Systemd::Systemd json ulocal)
 set_target_properties(libccoold PROPERTIES OUTPUT_NAME "ccoold")
 
 add_executable(ccoold ccoold.cpp)

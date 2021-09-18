@@ -1,12 +1,8 @@
 #include <cxxopts.hpp>
+#include <fmt/core.h>
 #include <fmt/format.h>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_sinks.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include "ccool_daemon.hpp"
-
-auto logger = spdlog::stdout_color_mt("ccoold");
 
 int main(int argc, char* argv[])
 {
@@ -28,7 +24,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	ccool::CCoolDaemon ccool_daemon(result["socket"].as<std::string>());
+	ccool::CCoolDaemon ccool_daemon(result["socket"].as<std::string>(), result["no-daemon"].count() == 0u);
 	ccool_daemon.run(result["interface"].as<std::string>());
 	return 0;
 }

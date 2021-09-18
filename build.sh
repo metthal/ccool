@@ -2,9 +2,10 @@
 
 set -e
 
-python -m venv tools/dpgen/env
-source tools/dpgen/env/bin/activate
-pip install tools/dpgen
+#python -m venv env
+#python -m venv tools/dpgen/env
+#pip install tools/dpgen
+#source tools/dpgen/env/bin/activate
 
 dpgen specs/ src/ccoold/
 

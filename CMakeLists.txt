@@ -28,6 +28,7 @@ find_package(spdlog REQUIRED)
 if(spdlog_FOUND)
 	message(STATUS "Found spdlog version ${spdlog_VERSION}")
 endif()
+find_package(Systemd REQUIRED)
 
 add_subdirectory(deps)
 add_subdirectory(src)

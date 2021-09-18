@@ -2,6 +2,7 @@
 
 #include "device_detector.hpp"
 #include "devices/all.hpp"
+#include "logging.hpp"
 
 namespace ccool {
 
@@ -20,11 +21,11 @@ std::unique_ptr<BaseDevice> DeviceDetector::detect_device(const std::string& int
 		auto vendor_id = device_if->get_vendor_id();
 		auto product_id = device_if->get_product_id();
 
-		spdlog::debug("  - {:#06x}:{:#06x}", vendor_id, product_id);
+		LOG->debug("  - {:#06x}:{:#06x}", vendor_id, product_id);
 		result = check_known_devices(vendor_id, product_id, std::move(device_if));
 		if (result)
 		{
-			spdlog::debug("     - known device '{}'", result->get_name());
+			LOG->debug("     - known device '{}'", result->get_name());
 			break;
 		}
 	}

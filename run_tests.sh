@@ -7,6 +7,6 @@ set -e
 ./build/tests/unit/unit_tests
 
 export PATH=$(realpath ./build/src/ccool/):$(realpath ./build/src/ccoold/):$PATH
-source ./tests/integration/env/bin/activate
+source ./env/bin/activate
 
 pytest -vvv tests/integration -n auto

@@ -13,3 +13,4 @@ mkdir -p build && cd build
 CC=gcc CXX=g++ cmake -DCMAKE_BUILD_TYPE=Debug -DCCOOL_TESTS=ON ..
 CC=gcc CXX=g++ cmake --build . -- -j
 cd -
+ln -s $(realpath build/compile_commands.json) .
